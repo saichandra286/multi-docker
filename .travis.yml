@@ -10,8 +10,4 @@ after_success:
   - docker build -t complex/multi-nginx ./nginx
   - docker build -t complex/multi-server ./server
   - docker build -t complex/multi-worker ./worker
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-  - docker push complex/multi-client
-  - docker push complex/multi-nginx
-  - docker push complex/multi-server
-  - docker push complex/multi-worker
+  
