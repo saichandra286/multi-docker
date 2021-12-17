@@ -1,17 +1,16 @@
 sudo: required
 services:
   - docker
+  
 before_install:
   - docker build -t complex/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run complex/react-test npm test -- --coverage
   - docker build -t complex/multi-client ./client
   - docker build -t complex/multi-nginx ./nginx
   - docker build -t complex/multi-server ./server
   - docker build -t complex/multi-worker ./worker
-
-script:
-  - docker run complex/react-test npm test -- --coverage
-
-after_success:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   - docker push complex/multi-client
   - docker push complex/multi-nginx
